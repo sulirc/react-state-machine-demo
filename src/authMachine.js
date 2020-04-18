@@ -1,39 +1,19 @@
-import { createMachine as Machine, assign } from "xstate";
+import { postUserAuthData } from "./util";
+import { Machine, assign } from "xstate";
 
-const postUserAuthData = ({ account, password }) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (account === 'suli' && password === 'qwer1234') {
-        resolve({
-          msg: "login ok",
-          code: 0,
-          data: {
-            token: `${account}/${password}.${Math.random().toString(32).substring(2)}`,
-          },
-        });
-      } else {
-        reject({
-          msg: "login fail",
-          code: -1,
-        });
-      }
-    }, 1000);
-  });
-};
-
-const setUserToken = assign({
+export const setUserToken = assign({
   token: (_ctx, evt) => {
     return evt.data.data.token;
   },
 });
 
-const clearUserToken = assign({
-  token: (_ctx, evt) => {
+export const clearUserToken = assign({
+  token: (_ctx, _evt) => {
     return null;
   },
 });
 
-const updateTipMsg = assign({
+export const updateTipMsg = assign({
   tipMsg: (ctx, evt) => {
     if (formIsInvalid(ctx)) {
       return "form invalid";
@@ -45,7 +25,7 @@ const updateTipMsg = assign({
   },
 });
 
-const updateUserFormData = assign({
+export const updateUserFormData = assign({
   account: (_ctx, evt) => {
     return evt.account;
   },
@@ -54,13 +34,13 @@ const updateUserFormData = assign({
   },
 });
 
-function formIsInvalid(ctx, _evt) {
+export function formIsInvalid(ctx, _evt) {
   return !(ctx.account && ctx.password);
 }
 
 export default Machine(
   {
-    id: "login",
+    id: "auth",
     initial: "loggedOut",
     context: {
       account: null,
