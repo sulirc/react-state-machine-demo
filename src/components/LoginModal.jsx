@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { curry } from "lodash";
 import { useMachine } from "@xstate/react";
 import { Modal, Button, Input, Divider, Row, Col } from "antd";
-import loginMachine from "./loginMachine";
+import loginMachine from "../machine/loginMachine";
 import "./style.css";
 
 export default function LoginModal() {
@@ -58,6 +58,14 @@ export default function LoginModal() {
           </Col>
         </Row>
       </Modal>
+
+      <pre className="dev-tips">
+        成功：输入账号 suli 以及密码 qwer1234
+        <br/>
+        失败：输入其他任意账号密码
+        <br/>
+        表单验证失败：账号、密码都为空
+      </pre>
     </>
   );
 }

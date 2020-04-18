@@ -13,3 +13,12 @@
   font-size: 16px;
   color: #333;
 }
+.dev-tips {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-left: 1em;
+  text-align: left;
+  font-size: .8em;
+  color: #888;
+}
