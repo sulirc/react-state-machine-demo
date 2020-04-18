@@ -2,11 +2,10 @@ import React, { useRef } from "react";
 import { curry } from "lodash";
 import { useMachine } from "@xstate/react";
 import { Modal, Button, Input, Divider, Row, Col } from "antd";
-import loginMachine from "../machine/loginMachine";
-import "./style.css";
+import authMachine from "./authMachine";
 
 export default function LoginModal() {
-  const [state, send] = useMachine(loginMachine);
+  const [state, send] = useMachine(authMachine);
   const userMsg = useRef({
     account: "",
     password: "",
@@ -20,10 +19,10 @@ export default function LoginModal() {
   }
 
   function updateUserMsg(type, e) {
-    userMsg.current = ({
+    userMsg.current = {
       ...userMsg.current,
       [type]: e.target.value,
-    });
+    };
   }
 
   const updateAccount = curry(updateUserMsg)("account");
@@ -43,7 +42,9 @@ export default function LoginModal() {
         footer={<Button onClick={submit}>Submit</Button>}
       >
         <Row>
-          <Col span={6}>Account:</Col>
+          <Col span={6}>
+            <span className="sub-title">Account:</span>
+          </Col>
           <Col span={18}>
             <Input placeholder="please enter account" defaultValue={userMsg.account} onChange={updateAccount} />
           </Col>
@@ -52,7 +53,9 @@ export default function LoginModal() {
           Fill Password
         </Divider>
         <Row>
-          <Col span={6}>Password:</Col>
+          <Col span={6}>
+            <span className="sub-title">Password:</span>
+          </Col>
           <Col span={18}>
             <Input.Password placeholder="please enter password" defaultValue={userMsg.pwd} onChange={updatePassword} />
           </Col>
@@ -61,9 +64,9 @@ export default function LoginModal() {
 
       <pre className="dev-tips">
         成功：输入账号 suli 以及密码 qwer1234
-        <br/>
+        <br />
         失败：输入其他任意账号密码
-        <br/>
+        <br />
         表单验证失败：账号、密码都为空
       </pre>
     </>

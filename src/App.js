@@ -1,12 +1,12 @@
 import React from 'react';
-import LoginModal from './components/LoginModal';
+import AuthModal from './Modal';
 import 'antd/dist/antd.css';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <LoginModal />
+      <AuthModal />
     </div>
   );
 }

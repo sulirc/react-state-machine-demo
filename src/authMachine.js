@@ -54,7 +54,7 @@ const updateUserFormData = assign({
   },
 });
 
-function formIsInvalid(ctx, evt) {
+function formIsInvalid(ctx, _evt) {
   return !(ctx.account && ctx.password);
 }
 
@@ -109,7 +109,7 @@ export default Machine(
   },
   {
     services: {
-      login: (ctx, evt) => {
+      login: (ctx, _evt) => {
         return postUserAuthData({
           account: ctx.account,
           password: ctx.password,
